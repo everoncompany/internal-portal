@@ -1,26 +1,21 @@
-// in src/components/AdminApp.tsx
-"use client"; // remove this line if you choose Pages Router
-import { Admin, Resource, ListGuesser, EditGuesser } from "react-admin";
-import jsonServerProvider from "ra-data-json-server";
+import { Admin, Resource, ListGuesser, CustomRoutes, EditGuesser } from 'react-admin';
+import jsonServerProvider from 'ra-data-json-server';
+import { AuthProvider } from 'react-admin';
+import { Route } from 'react-router-dom';
+import DeviceConfigPage from './DeviceConfig/DeviceConfigpage';
+import CustomLayout from './common/CustomLayout';
 
-const dataProvider = jsonServerProvider("https://jsonplaceholder.typicode.com");
+const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
 
-const AdminApp = () => (
-  <Admin dataProvider={dataProvider}>
-    <Resource
-      name="users"
-      list={ListGuesser}
-      edit={EditGuesser}
-      recordRepresentation="name"
-    />
-    <Resource
-      name="posts"
-      list={ListGuesser}
-      edit={EditGuesser}
-      recordRepresentation="title"
-    />
-    <Resource name="comments" list={ListGuesser} edit={EditGuesser} />
-  </Admin>
-);
+const AdminApp = ({ authProvider }: { authProvider: AuthProvider }) => {
+  return (
+    <Admin dataProvider={dataProvider} authProvider={authProvider} layout={CustomLayout}>
+      <Resource name="users" list={ListGuesser} edit={EditGuesser} recordRepresentation="name" />
+      <CustomRoutes>  
+        <Route path="/device-config" element={<DeviceConfigPage />} />
+      </CustomRoutes>
+    </Admin>
+  );
+};
 
 export default AdminApp;

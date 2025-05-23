@@ -23,3 +23,5 @@ frontend/.next/*
 *.njsproj
 *.sln
 *.sw?
+
+*.env
