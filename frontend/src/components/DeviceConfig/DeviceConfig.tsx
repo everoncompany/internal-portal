@@ -59,7 +59,7 @@ export default function DeviceConfigForm() {
       <CardContent>
       <SimpleForm
         onSubmit={handleSubmit}
-        form={form}
+        //form={form}
         toolbar={
           <CustomToolbar disabled={!deviceId || !deviceType} />
         }
